@@ -1,5 +1,6 @@
 main = do
-  let 
-    a = 10
-    b = 20
-  print (a + b)
+  putStr "Enter the first number: "
+  a <- readLn
+  putStr "Enter the second number: "
+  b <- readLn
+  putStrLn $ "The result is " ++ (show (a + b)) ++ "!"
