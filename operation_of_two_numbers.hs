@@ -23,18 +23,14 @@ readOperation = do
   then putStrLn "\nInvalid input. Please try again." >> readOperation
   else return operation
 
--- Reads the numbers while applying the selected operation to them
-calcRead :: Int -> Int -> IO Int
-calcRead op n =
-  if op == 1 then calcRead' op n 0 else calcRead' op n 1
-    where
-      calc 1 acc x = acc + x
-      calc 2 acc x = acc * x
-
-      calcRead' op 0 acc = return acc
-      calcRead' op n acc = do
-        x <- readLn
-        calcRead' op (n-1) (calc op acc x)
+-- Reads the numbers entered by the user into a list
+readInts :: Int -> IO [Int]
+readInts n | n > 0 = do
+                       x <- getLine
+                       let x2 = map (\x -> read x :: Int) $ words x
+                       y <- readInts (n - length x2)
+                       return $ take (min (length x2) n) x2 ++ y
+           | True  = return [] 
 
 -- Now we keep asking the user infinitely for two numbers to add!
 inf_input = do
@@ -45,10 +41,17 @@ inf_input = do
   buf <- getLine
   let n = (read buf :: Int)
 
-  putStrLn "Enter the numbers line by line:"
+  putStrLn "Enter the numbers separated by spaces or newlines:"
+  input <- readInts n
+
+  let result = case operation of
+                 1 -> sum input
+                 2 -> product input
+
+  putStrLn $ "The result is " ++ (show result) ++ "!\n"
   
-  rta <- calcRead operation n
-  putStrLn $ "The result is " ++ (show rta) ++ "!\n";
+  -- rta <- calcRead operation n
+  -- putStrLn $ "The result is " ++ (show rta) ++ "!\n";
  
   inf_input
 
