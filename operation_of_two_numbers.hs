@@ -42,7 +42,11 @@ inf_input = do
   putStrLn "Enter the numbers separated by spaces or newlines:"
   input <- readInts n
 
-  print input
+  let result = case operation of
+                 1 -> sum input
+                 2 -> product input
+
+  putStrLn $ "The result is " ++ (show result) ++ "!\n"
   
   -- rta <- calcRead operation n
   -- putStrLn $ "The result is " ++ (show rta) ++ "!\n";
