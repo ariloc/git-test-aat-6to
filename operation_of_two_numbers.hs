@@ -50,9 +50,6 @@ inf_input = do
 
   putStrLn $ "The result is " ++ (show result) ++ "!\n"
   
-  -- rta <- calcRead operation n
-  -- putStrLn $ "The result is " ++ (show rta) ++ "!\n";
- 
   inf_input
 
 main = inf_input
