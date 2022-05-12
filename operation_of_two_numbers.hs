@@ -2,6 +2,7 @@ import Data.Char
 import Text.Read
 import Control.Monad
 
+-- Reads and parses the operation selected by the user
 readOperation = do
   putStr "(sum, product) [1-2]: "
   buf <- getLine
@@ -22,7 +23,7 @@ readOperation = do
   then putStrLn "\nInvalid input. Please try again." >> readOperation
   else return operation
 
-
+-- Reads the numbers while applying the selected operation to them
 calcRead :: Int -> Int -> IO Int
 calcRead op n =
   if op == 1 then calcRead' op n 0 else calcRead' op n 1
