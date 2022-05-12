@@ -22,6 +22,12 @@ readOperation = do
   then putStrLn "\nInvalid input. Please try again." >> readOperation
   else return operation
 
+readInts :: Int -> IO [Int]
+readInts 0 = return []
+readInts n = do
+  x <- readLn
+  y <- readInts (n-1)
+  return (x : y)
 
 calcRead :: Int -> Int -> IO Int
 calcRead op n =
@@ -45,9 +51,12 @@ inf_input = do
   let n = (read buf :: Int)
 
   putStrLn "Enter the numbers line by line:"
+  test <- readInts n
+
+  print test
   
-  rta <- calcRead operation n
-  putStrLn $ "The result is " ++ (show rta) ++ "!\n";
+  -- rta <- calcRead operation n
+  -- putStrLn $ "The result is " ++ (show rta) ++ "!\n";
  
   inf_input
 
